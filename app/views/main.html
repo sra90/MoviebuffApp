@@ -1,0 +1,71 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Home</a></li>
+    <li><a ng-href="#">About</a></li>
+    <li><a ng-href="#">Contact</a></li>
+  </ul>
+  <h3 class="text-muted">MovieBuff</h3>
+</div>
+
+<div class="row">
+  <div class="input-group col-lg-10 col-md-10 col-sm-10 col-xs-10">
+    <input type="text" class="form-control" placeholder="Search for a movie" ng-model="search"> 
+    
+  <span class="input-group-btn">  
+      <button class="btn btn-default" ng-click="movieSearch()">
+          <i class="glyphicon glyphicon-search"></i>
+       </button> 
+  </span>
+  
+  </div>
+</div>
+
+<br><br>
+
+<ul id="main_listing">
+  <li ng-repeat="movie in movies | filter:search">
+      <div class="row">
+        <img class="col-lg-2" ng-src={{movie.posters.thumbnail}}>
+        <div class="col-lg-8">
+          <table>
+            <tr>
+              <td><b>Title:</b></td>
+              <td colspan="10">{{movie.title}}</td>
+            </tr>
+            <tr>
+              <td><b>Year:</b></td>
+              <td>{{movie.year}}</td>
+            </tr>
+            <tr>
+              <td ><b>Critics Rating:</b></td>
+              <td>{{movie.ratings.critics_score}} </td>
+              <td ><b>Audience Rating:</b> </td>
+              <td>{{movie.ratings.audience_score}}</td>
+            </tr>
+            <tr>
+              <td><b>Cast:</b></td> 
+              <td ng-repeat="cast in movie.abridged_cast">{{cast.name}}</td>
+            </tr>
+          </table>  <br>
+          <a href="" ng-click="showDetails($index)">Synopsis</a><br>
+          <div ng-show="movie.details">{{movie.synopsis}}</div>
+          <a href="" ng-click="showReviews($index)">Reviews</a><br>
+          <ul ng-show="movie.getreview">
+            <li ng-repeat="review in movie.reviews">
+
+              <b>Critic:</b>{{review.critic}}<br>
+              <b>Publication:</b>
+                  {{review.publication}}&nbsp;&nbsp;
+              <b>Date:</b>
+                  {{review.date}}<br>
+              <b>Score:</b>
+                  {{review.original_score}}<br>
+              <b>Quote:</b>{{review.quote}}
+                <br><br>
+            </li>
+          </ul>
+        </div>
+      
+      </div>
+  </li>    
+</ul>
